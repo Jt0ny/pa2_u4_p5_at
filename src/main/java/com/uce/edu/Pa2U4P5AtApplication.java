@@ -22,7 +22,7 @@ public class Pa2U4P5AtApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Persona p1= new Persona();
+		/*Persona p1= new Persona();
 		p1.setCedula("1223");
 		p1.setApellido("Tipan");
 		p1.setNombre("Anthony");
@@ -34,7 +34,7 @@ public class Pa2U4P5AtApplication implements CommandLineRunner{
 		p2.setApellido("Tipan");
 		p2.setNombre("Joel");
 		p2.setGenero("M");
-		this.iPersonaService.guardar(p2);
+		this.iPersonaService.guardar(p2);*/
 		
 	}
 

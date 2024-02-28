@@ -23,7 +23,7 @@ public class Pa2U4P5AtApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		Persona p1= new Persona();
-		p1.setCedula("123");
+		p1.setCedula("1223");
 		p1.setApellido("Tipan");
 		p1.setNombre("Anthony");
 		p1.setGenero("M");
@@ -32,7 +32,7 @@ public class Pa2U4P5AtApplication implements CommandLineRunner{
 		Persona p2= new Persona();
 		p2.setCedula("123");
 		p2.setApellido("Tipan");
-		p2.setNombre("Anthony");
+		p2.setNombre("Joel");
 		p2.setGenero("M");
 		this.iPersonaService.guardar(p2);
 		

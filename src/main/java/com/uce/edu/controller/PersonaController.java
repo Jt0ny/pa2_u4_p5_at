@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,29 +46,49 @@ public class PersonaController {
 		return"vistaListaPersonas";
 	}
 	
+	//cuando viaja el modelo en el response
 	//Path
 	//GET
-	@GetMapping("/buscar")
-	public String buscarPorCedula(String cedula) {
-		return "";
+	//http://localhost:8080/personas/buscarPorCedula/1223
+	@GetMapping("/buscarPorCedula/{cedulaPersona}")
+	public String buscarPorCedula(@PathVariable("cedulaPersona")String cedula,Model modelo) {
+		Persona persona=this.iPersonaService.buscarPorCedula(cedula);
+		modelo.addAttribute("persona",persona);
+		return "vistaPersona";
 	}
 	
 	//PUT
-	@PutMapping("/actualizar")
-	public String actualizar () {
-		return "";
+	//cuando viaja el modelo en el request(es decir desde la vista)
+	@PutMapping("/actualizar/{cedulaPersona}")
+	public String actualizar (@PathVariable("cedulaPersona")String cedula,Persona persona) {
+		Persona perAux=this.iPersonaService.buscarPorCedula(cedula);
+		perAux.setApellido(persona.getApellido());
+		perAux.setCedula(persona.getCedula());
+		perAux.setGenero(persona.getGenero());
+		perAux.setNombre(persona.getNombre());
+		this.iPersonaService.actualizar(perAux);
+		return "redirect:/personas/buscarTosdos";
 	}
 	
 	//DELETE
-	@DeleteMapping("/borrar")
-	public String borrar() {
-		return "";
+	@DeleteMapping("/borrar/{cedula}")
+	public String borrar(@PathVariable("cedula")String cedula) {
+		this.iPersonaService.eliminarPorCedula(cedula);
+		return "redirect:/personas/buscarTosdos";
 	}
 	
 	//POST
 	@PostMapping("/guardar")
-	private String guardar() {
-		return "";
+	private String guardar(Persona persona) {
+		this.iPersonaService.guardar(persona);
+		return "redirect:/personas/buscarTosdos";
 	}
 
+	//Para poder ver la pagina vacia
+	//http://localhost:8080/personas/nuevaPersona
+	@GetMapping("/nuevaPersona")
+	public String mostrarNuevaPersona(Model modelo) {
+		modelo.addAttribute("persona",new Persona());
+		return "vistaNuevaPersona";
+	}
 }
